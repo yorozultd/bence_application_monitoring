@@ -11,7 +11,7 @@ d4 = today.strftime("%b-%d-%Y")
 
 
 fromaddr = "hikari.code@gmail.com"
-toaddr = "hikari.code@gmail.com"
+toaddr = "shivamrawat6670@gmail.com"
 message = MIMEMultipart("alternative")
 message["Subject"] = str(d4) + " Daily Report"
 message["From"] = fromaddr
@@ -44,9 +44,10 @@ s.starttls()
 s.ehlo()
 #s.login('cooperatepvtinc@gmail.com','c00p3r4t3') 
 s.login('hikari.code@gmail.com','eedd6938-3151-4955-97e1-7c7a8c6f89b2') 
-
+text="Automatic Mailer"
+part1= MIMEText(text,'plain')
 part2 = MIMEText(html, "html")
-
+message.attach(part1)
 message.attach(part2)
 s.sendmail(fromaddr, toaddr, message.as_string()) 
   
