@@ -5,7 +5,7 @@ import numpy
 import smtplib 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from datetime import date
+from datetime import date,datetime
 today= date.today()
 d4 = today.strftime("%b-%d-%Y")
 
@@ -29,7 +29,10 @@ root= et.getroot();
 applications = root.findall('application')
 
 for application in applications  : 
-    html+= "<h1><li>"+application.find('application_name').text+ "</li></h1><ul>"
+    html+= "<h1"
+    if ((datetime.now() -  datetime.strptime(str(application.find('update_date').text),'%Y-%m-%d %H:%M:%S')).total_seconds()) / 86400 > 1 : 
+        html+=" style='color:red;' "
+    html+="><li>"+application.find('application_name').text+ "</li></h1><ul>"
     html+= "<pre><li><h3 style='display:inline;'><b><u>Application Status</u>  : </b></h3><div  style='display:inline;'>"+application.find('application_status').text+ "</div></li></pre>"
     html+= "<pre><li><h3  style='display:inline;' ><b><u>Comment</u>  : </b></h3><div  style='display:inline;'>"+application.find('comment').text+ "</div></li></pre>"
     html+= "<pre><li><h3  style='display:inline;' ><b><u>Update Date</u>  : </b></h3><div  style='display:inline;'>"+application.find('update_date').text+ "</div></pre></li></ul>"
