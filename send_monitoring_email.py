@@ -11,7 +11,7 @@ d4 = today.strftime("%b-%d-%Y")
 
 
 fromaddr = "hikari.code@gmail.com"
-toaddr = "shivamrawat6670@gmail.com"
+toaddr = "hikari.code@gmail.com"
 message = MIMEMultipart("alternative")
 message["Subject"] = str(d4) + " Daily Report"
 message["From"] = fromaddr
@@ -30,10 +30,16 @@ applications = root.findall('application')
 
 for application in applications  : 
     html+= "<h1"
+    color=False
     if ((datetime.now() -  datetime.strptime(str(application.find('update_date').text),'%Y-%m-%d %H:%M:%S')).total_seconds()) / 86400 > 1 : 
+        color =True
+    if application.find('previous_status').text!='TERMINATED' and application.find('application_status').text=='TERMINATED':
+        color=True
+    if color :
         html+=" style='color:red;' "
     html+="><li>"+application.find('application_name').text+ "</li></h1><ul>"
     html+= "<pre><li><h3 style='display:inline;'><b><u>Application Status</u>  : </b></h3><div  style='display:inline;'>"+application.find('application_status').text+ "</div></li></pre>"
+    html+= "<pre><li><h3 style='display:inline;'><b><u>Previous Status</u>  : </b></h3><div  style='display:inline;'>"+application.find('previous_status').text+ "</div></li></pre>"
     html+= "<pre><li><h3  style='display:inline;' ><b><u>Comment</u>  : </b></h3><div  style='display:inline;'>"+application.find('comment').text+ "</div></li></pre>"
     html+= "<pre><li><h3  style='display:inline;' ><b><u>Update Date</u>  : </b></h3><div  style='display:inline;'>"+application.find('update_date').text+ "</div></pre></li></ul>"
 
