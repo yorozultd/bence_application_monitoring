@@ -29,7 +29,7 @@ root= et.getroot();
 applications = root.findall('application')
 
 for application in applications  : 
-    html+= "<h1"
+    html+= "<h2"
     color=False
     if ((datetime.now() -  datetime.strptime(str(application.find('update_date').text),'%Y-%m-%d %H:%M:%S')).total_seconds()) / 86400 > 1 : 
         color =True
@@ -37,7 +37,7 @@ for application in applications  :
         color=True
     if color :
         html+=" style='color:red;' "
-    html+="><li>"+application.find('application_name').text+ "</li></h1><ul>"
+    html+="><li>"+application.find('application_name').text+ "</li></h2><ul>"
     html+= "<pre><li><h3 style='display:inline;'><b><u>Application Status</u>  : </b></h3><div  style='display:inline;'>"+application.find('application_status').text+ "</div></li></pre>"
     html+= "<pre><li><h3 style='display:inline;'><b><u>Previous Status</u>  : </b></h3><div  style='display:inline;'>"+application.find('previous_status').text+ "</div></li></pre>"
     html+= "<pre><li><h3  style='display:inline;' ><b><u>Comment</u>  : </b></h3><div  style='display:inline;'>"+application.find('comment').text+ "</div></li></pre>"
