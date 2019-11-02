@@ -33,7 +33,7 @@ for application in applications  :
     color=False
     if ((datetime.now() -  datetime.strptime(str(application.find('update_date').text),'%Y-%m-%d %H:%M:%S')).total_seconds()) / 86400 > 1 : 
         color =True
-    if application.find('previous_status').text!='TERMINATED' and application.find('application_status').text=='TERMINATED':
+    if application.find('previous_status').text!='TERMINATED' and application.find('application_status').text!='TERMINATED':
         color=True
     if color :
         html+=" style='color:red;' "
